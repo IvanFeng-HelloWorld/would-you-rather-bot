@@ -2,7 +2,14 @@
   <Folder Name="/.github/">
     <File Path=".github/instruction.md" />
   </Folder>
+  <Folder Name="/specs/">
+    <File Path="specs/requirements-startup-healthcheck.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/WouldYouRather.Api/WouldYouRather.Api.csproj" />
+  </Folder>
   <Folder Name="/方案項目/">
     <File Path="agent.md" />
+    <File Path="Dockerfile" />
   </Folder>
 </Solution>
