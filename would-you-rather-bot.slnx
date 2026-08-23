@@ -1,1 +1,8 @@
-<Solution />
+<Solution>
+  <Folder Name="/.github/">
+    <File Path=".github/instruction.md" />
+  </Folder>
+  <Folder Name="/方案項目/">
+    <File Path="agent.md" />
+  </Folder>
+</Solution>
