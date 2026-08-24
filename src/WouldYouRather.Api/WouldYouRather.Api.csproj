@@ -13,8 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Aes256CryptoLib">
-      <HintPath>..\..\..\Aes256CryptoLib.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\toolkits\Aes256CryptoLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

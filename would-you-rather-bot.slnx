@@ -9,6 +9,9 @@
   <Folder Name="/src/">
     <Project Path="src/WouldYouRather.Api/WouldYouRather.Api.csproj" />
   </Folder>
+  <Folder Name="/toolkits/">
+    <File Path="toolkits/Aes256CryptoLib.dll" />
+  </Folder>
   <Folder Name="/方案項目/">
     <File Path="agent.md" />
     <File Path="Dockerfile" />
