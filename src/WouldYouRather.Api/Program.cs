@@ -24,34 +24,30 @@ if (string.IsNullOrWhiteSpace(encAccess) || string.IsNullOrWhiteSpace(encSecret)
     Environment.Exit(1);
 }
 
-// Build a temporary provider to resolve the crypto service and perform decryption at startup (fail-fast on errors)
-using (var tmpProvider = builder.Services.BuildServiceProvider())
+var crypto = new Aes256CryptoService();
+string accessPlain;
+string secretPlain;
+try
 {
-    var crypto = new Aes256CryptoService();
-    string accessPlain;
-    string secretPlain;
-    try
-    {
-        accessPlain = crypto.Decrypt(encAccess);
-        secretPlain = crypto.Decrypt(encSecret);
-        Console.WriteLine($"accessPlain:{accessPlain[..5]}");
-        Console.WriteLine($"secretPlain:{secretPlain[..5]}");
-    }
-    catch (Exception ex)
-    {
-        // Do not log secrets; only log high-level error
-        Console.Error.WriteLine($"Failed to decrypt LineBot settings: {ex.Message}");
-        Environment.Exit(1);
-        throw; // unreachable, but keeps compiler happy
-    }
-
-    // Bind decrypted settings into IOptions<LineBotSetting>
-    builder.Services.Configure<LineBotSetting>(opts =>
-    {
-        opts.ChannelAccessToken = accessPlain;
-        opts.ChannelSecret = secretPlain;
-    });
+    accessPlain = crypto.Decrypt(encAccess);
+    secretPlain = crypto.Decrypt(encSecret);
+    Console.WriteLine($"accessPlain:{accessPlain[..5]}");
+    Console.WriteLine($"secretPlain:{secretPlain[..5]}");
 }
+catch (Exception ex)
+{
+    // Do not log secrets; only log high-level error
+    Console.Error.WriteLine($"Failed to decrypt LineBot settings: {ex.Message}");
+    Environment.Exit(1);
+    throw; // unreachable, but keeps compiler happy
+}
+
+// Bind decrypted settings into IOptions<LineBotSetting>
+builder.Services.Configure<LineBotSetting>(opts =>
+{
+    opts.ChannelAccessToken = accessPlain;
+    opts.ChannelSecret = secretPlain;
+});
 
 var app = builder.Build();
 

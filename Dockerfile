@@ -26,4 +26,7 @@ RUN dotnet publish "./WouldYouRather.Api.csproj" -c $BUILD_CONFIGURATION -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# 關閉 appsettings.json 的 FileSystemWatcher 熱重載，避免容器 inotify 額度耗盡導致啟動失敗
+ENV DOTNET_hostBuilder__reloadConfigOnChange=false
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet WouldYouRather.Api.dll
