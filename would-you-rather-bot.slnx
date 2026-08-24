@@ -3,6 +3,7 @@
     <File Path=".github/instruction.md" />
   </Folder>
   <Folder Name="/specs/">
+    <File Path="specs/requirements-linebot-settings-decrypt.md" />
     <File Path="specs/requirements-startup-healthcheck.md" />
   </Folder>
   <Folder Name="/src/">
