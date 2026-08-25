@@ -4,6 +4,7 @@
   </Folder>
   <Folder Name="/specs/">
     <File Path="specs/requirements-linebot-settings-decrypt.md" />
+    <File Path="specs/requirements-requirements_verify_webhook_signature.md" />
     <File Path="specs/requirements-startup-healthcheck.md" />
   </Folder>
   <Folder Name="/src/">

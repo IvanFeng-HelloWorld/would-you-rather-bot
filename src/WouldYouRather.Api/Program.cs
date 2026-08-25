@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using System.Text.Json.Serialization;
 using WouldYouRather.Api.Models;
+using WouldYouRather.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,8 +32,6 @@ try
 {
     accessPlain = crypto.Decrypt(encAccess);
     secretPlain = crypto.Decrypt(encSecret);
-    Console.WriteLine($"accessPlain:{accessPlain[..5]}");
-    Console.WriteLine($"secretPlain:{secretPlain[..5]}");
 }
 catch (Exception ex)
 {
@@ -50,6 +49,9 @@ builder.Services.Configure<LineBotSetting>(opts =>
 });
 
 var app = builder.Build();
+
+// 加入對 /webhook 的簽章驗證中介軟體（只對 POST /webhook 生效）
+app.UseLineSignatureVerification();
 
 app.MapGet("/health", () => Results.Json(new
 {
