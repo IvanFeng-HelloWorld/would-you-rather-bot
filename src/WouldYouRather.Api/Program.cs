@@ -1,10 +1,13 @@
 using Aes256CryptoLib;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text.Json.Serialization;
 using WouldYouRather.Api.Models;
 using WouldYouRather.Api.Extensions;
+using WouldYouRather.Application.Interfaces;
+using WouldYouRather.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,10 +51,24 @@ builder.Services.Configure<LineBotSetting>(opts =>
     opts.ChannelSecret = secretPlain;
 });
 
+// 註冊 Webhook 事件處理服務（DI）
+builder.Services.AddScoped<IWebhookEventHandler, WebhookEventService>();
+
+// 註冊控制器
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
+
 var app = builder.Build();
 
 // 加入對 /webhook 的簽章驗證中介軟體（只對 POST /webhook 生效）
 app.UseLineSignatureVerification();
+
+// 對應控制器路由
+app.MapControllers();
 
 app.MapGet("/health", () => Results.Json(new
 {

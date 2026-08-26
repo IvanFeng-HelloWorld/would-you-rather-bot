@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\WouldYouRather.Application\WouldYouRather.Application.csproj" />
     <ProjectReference Include="..\WouldYouRather.Domain\WouldYouRather.Domain.csproj" />
   </ItemGroup>

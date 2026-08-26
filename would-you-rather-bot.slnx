@@ -6,12 +6,16 @@
     <File Path="specs/requirements-linebot-settings-decrypt.md" />
     <File Path="specs/requirements-requirements_verify_webhook_signature.md" />
     <File Path="specs/requirements-startup-healthcheck.md" />
+    <File Path="specs/requirements-webhook-receive-messages.md" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/WouldYouRather.Api/WouldYouRather.Api.csproj" />
     <Project Path="src/WouldYouRather.Application/WouldYouRather.Application.csproj" />
     <Project Path="src/WouldYouRather.Domain/WouldYouRather.Domain.csproj" />
     <Project Path="src/WouldYouRather.Infrastructure/WouldYouRather.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/WouldYouRather.Api.Tests/WouldYouRather.Api.Tests.csproj" Id="4bc7b9f3-1b81-4885-a4ea-50ce19ef61c2" />
   </Folder>
   <Folder Name="/toolkits/">
     <File Path="toolkits/Aes256CryptoLib.dll" />
