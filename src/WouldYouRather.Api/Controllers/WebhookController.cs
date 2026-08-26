@@ -41,14 +41,15 @@ public class WebhookController : ControllerBase
     /// <returns>200 OK</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ReceiveWebhookAsync([FromBody] LineWebhookRequest? request)
     {
-        //// 驗證 request body 格式
-        //if (request is null || request.Events is null || request.Events.Length == 0)
-        //{
-        //    Console.WriteLine($"[{DateTime.UtcNow:o}] Webhook 請求格式錯誤或事件空集合。");
-        //    return BadRequest(new { error = "Invalid webhook request: events array is empty or missing." });
-        //}
+        // 驗證 request body 格式
+        if (request is null || request.Events is null || request.Events.Length == 0)
+        {
+            Console.WriteLine($"[{DateTime.UtcNow:o}] Webhook 請求格式錯誤或事件空集合。");
+            return BadRequest(new { error = "Invalid webhook request: events array is empty or missing." });
+        }
 
         // 立即回傳 200 OK，不等待業務邏輯完成
         // 這樣確保 LINE Platform 不會因為超時而暫停投遞
